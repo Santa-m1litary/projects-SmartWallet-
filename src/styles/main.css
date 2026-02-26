@@ -1,0 +1,337 @@
+/* SmartWallet — clean white theme, responsive layout, subtle animations */
+
+/* ============= Variables ============= */
+:root{
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --fg: #0f1724;
+  --muted: #6b7280;
+  --accent-1: #0366d6;
+  --accent-2: #60a5fa;
+  --border: #e6e9ef;
+  --card-radius: 14px;
+  --btn-radius: 10px;
+  --shadow-soft: 0 8px 26px rgba(11,20,34,0.06);
+  --shadow-strong: 0 14px 40px rgba(11,20,34,0.08);
+  --max-width: 1100px;
+  --gap: 20px;
+  --transition: .18s ease;
+}
+
+/* ============= Reset & Base ============= */
+* { box-sizing: border-box; }
+html,body{ height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background:var(--bg); color:var(--fg); }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+
+/* ============= Layout ============= */
+.container{ max-width:var(--max-width); margin:28px auto; padding:20px; }
+.header{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand__logo{ width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); box-shadow:var(--shadow-soft); font-size:18px; }
+.brand__title{ font-size:18px; font-weight:700; }
+.header__actions{ display:flex; gap:10px; align-items:center; }
+
+/* ============= Cards & Hero ============= */
+.hero{ display:grid; grid-template-columns: 1fr 320px; gap:var(--gap); margin-bottom:18px; }
+.card{ background:var(--surface); border-radius:var(--card-radius); padding:18px; border:1px solid var(--border); box-shadow:var(--shadow-soft); }
+.balance{ display:flex; flex-direction:column; gap:12px; }
+.balance__top{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.balance__label{ color:var(--muted); font-size:13px; }
+.balance__amount{ font-size:28px; font-weight:700; }
+
+/* ============= Buttons ============= */
+
+.btn:hover{ transform:translateY(-3px); box-shadow:var(--shadow-strong); }
+.btn--ghost{ background:transparent; border:1px solid var(--border); color:var(--fg); }
+
+/* primary small */
+.btn--small{ padding:8px 10px; font-size:14px; }
+
+/* ============= Widgets ============= */
+.widget-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:12px; }
+.widget{ padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border:1px solid var(--border); text-align:center; }
+.widget__value{ font-weight:700; font-size:18px; }
+.widget__label{ font-size:12px; color:var(--muted); }
+
+/* ============= Features ============= */
+.features{ display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:14px; }
+.feature{ padding:14px; border-radius:12px; background:var(--surface); border:1px solid var(--border); display:flex; flex-direction:column; gap:8px; }
+.feature h3{ margin:0; font-size:15px; }
+.feature p{ margin:0; color:var(--muted); font-size:13px; }
+
+/* ============= Drawer & Overlay ============= */
+.drawer{ position:fixed; top:0; right:0; height:100%; width:360px; transform:translateX(110%); transition:transform .24s cubic-bezier(.2,.9,.25,1); z-index:90; padding:18px; background:var(--surface); border-left:1px solid var(--border); box-shadow: -12px 24px 60px rgba(11,20,34,0.06); }
+.drawer[aria-hidden="false"]{ transform:translateX(0); }
+.drawer-overlay{ position:fixed; inset:0; background:rgba(7,10,20,0.36); opacity:0; pointer-events:none; transition:opacity .18s ease; z-index:80; }
+.drawer-overlay[data-open="true"]{ opacity:1; pointer-events:auto; }
+
+/* ============= Controls / Forms ============= */
+.section{ margin-bottom:14px; }
+.row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+label{ font-size:14px; color:var(--muted); }
+input[type="text"], input[type="email"], select{ padding:9px 10px; border-radius:8px; border:1px solid var(--border); background:#fff; color:var(--fg); }
+
+/* ============= Footer ============= */
+.footer{ margin-top:26px; text-align:center; color:var(--muted); font-size:13px; }
+
+/* ============= Animations (reveal, hover subtle) ============= */
+.reveal{ opacity:0; transform:translateY(12px); transition:opacity .44s cubic-bezier(.2,.9,.25,1), transform .44s cubic-bezier(.2,.9,.25,1); transition-delay: var(--delay, 0ms); }
+.reveal.visible{ opacity:1; transform:none; }
+@keyframes floaty{ 0%{ transform:translateY(0) } 50%{ transform:translateY(-4px) } 100%{ transform:translateY(0) } }
+.brand__logo:hover{ animation: floaty 1.6s ease-in-out 1; }
+
+/* button micro animation */
+@keyframes btnPulse{ 0%{ transform:scale(1) } 50%{ transform:scale(1.03) } 100%{ transform:scale(1) } }
+.btn--primary:hover{ animation:btnPulse .6s ease 1; }
+
+/* ============= Accessibility ============= */
+@media (prefers-reduced-motion: reduce){
+  .reveal, .brand__logo, .btn--primary:hover{ animation:none !important; transition:none !important; }
+}
+
+/* ============= Responsive ============= */
+@media (max-width: 980px){
+  .hero{ grid-template-columns:1fr; }
+  .widget-grid{ grid-template-columns:repeat(2,1fr); }
+  .features{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 520px){
+  .container{ padding:12px; }
+  .widget-grid{ grid-template-columns:1fr; }
+  .features{ grid-template-columns:1fr; }
+  .header{ flex-direction:column; align-items:flex-start; gap:10px; }
+  .header__actions{ width:100%; display:flex; justify-content:space-between; }
+}
+/* ...existing code... */
+/* Доп. стили — плавные переходы, overlay для переключений, аккуратные контролы */
+.theme-overlay{
+  position:fixed; inset:0; background:var(--bg); opacity:0; pointer-events:none; z-index:9999;
+  transition:opacity .28s ease;
+}
+.theme-overlay.show{ opacity:1; pointer-events:auto; }
+
+.drawer-toggle-indicator{
+  width:10px; height:10px; border-radius:50%; background:var(--accent-1); display:inline-block; margin-left:8px;
+  box-shadow: 0 6px 14px rgba(3,6,23,0.08);
+}
+
+/* Улучшения для карточек/виджетов при hover */
+.card:hover{ transform: translateY(-6px); transition: transform .18s ease, box-shadow .18s ease; box-shadow: var(--shadow-strong); }
+
+/* Стили для лёгкой подсказки статуса */
+#status{ color:var(--muted); font-size:13px; min-width:120px; display:inline-block; padding-left:8px; }
+/* ...existing code... */
+
+/* Небольшие визуальные правки — не ломают структуру */
+.header__actions .btn{ gap:10px; padding:9px 12px; border-radius:10px; font-weight:600; }
+.header__actions .btn.btn--ghost{ background:transparent; border:1px solid var(--border); color:var(--fg); }
+
+.brand__logo{ width:48px; height:48px; border-radius:12px; font-size:18px; }
+
+/* Баланс: чуть крупнее, ровный межбуквенный интервал */
+.balance__amount{ font-size:34px; font-weight:800; letter-spacing:0.2px; line-height:1; }
+.balance__amount small{ color:var(--muted); font-weight:600; font-size:14px; }
+
+/* Ввод баланса — аккуратно вписан в дизайн */
+#balanceInput{ display:inline-block; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:#fff; color:var(--fg); }
+
+/* Кнопки: плавность и состояние фокуса */
+.btn{
+  transition: transform .14s ease, box-shadow .16s ease, background .12s ease, color .12s ease;
+}
+.btn:focus{ outline: 3px solid rgba(3,102,214,0.12); outline-offset:3px; }
+
+/* Primary button — более выразительный */
+.btn--primary{ box-shadow: 0 8px 24px rgba(3,102,214,0.08); }
+
+/* Виджеты: выравнивание по центру, аккуратный размер */
+.widget{ min-height:72px; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:14px; }
+
+/* Карточки — аккуратный hover без сдвига контента */
+.card{ transition: transform .18s ease, box-shadow .18s ease; will-change: transform, box-shadow; overflow:visible; }
+.card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+
+/* Drawer overlay: тёмный + размытие для глубины */
+.drawer-overlay{
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(7,10,20,0.36);
+}
+
+/* Drawer — чуть уже на маленьких экранах */
+@media (max-width:600px){
+  .drawer{ width: 280px; }
+  .brand__logo{ width:40px; height:40px; font-size:16px; }
+  .balance__amount{ font-size:26px; }
+}
+
+/* Скрыть визуальные артефакты при уменьшении масштаба */
+@media (max-width:420px){
+  .header__actions .btn{ padding:8px 10px; font-size:13px; }
+}
+
+/* Статус сообщений — лёгкий фон */
+#status{ background: rgba(15,23,36,0.03); padding:6px 8px; border-radius:8px; }
+/* ...existing code... */
+
+/* Специфические кнопки для основных действий — чёткая визуальная иерархия */
+.btn--txn{ /* Новая Транзакция — основной акцент */
+  background: linear-gradient(90deg,var(--accent-2),var(--accent-1));
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(3,102,214,0.12);
+}
+.btn--txn:hover{ transform: translateY(-4px); box-shadow: 0 18px 40px rgba(3,102,214,0.14); }
+
+/* Категории — нейтральный, лёгкий outline */
+.btn--category{
+  background: #fff;
+  color: var(--accent-1);
+  border: 1px dashed rgba(3,102,214,0.16);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.btn--category:hover{ background: rgba(3,102,214,0.04); }
+
+/* Отчёты — спокойный вторичный CTA */
+.btn--report{
+  background: linear-gradient(180deg, rgba(6,78,159,0.06), transparent);
+  color: var(--fg);
+  border: 1px solid rgba(15,23,36,0.06);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.btn--report:hover{ background: rgba(6,78,159,0.02); transform: translateY(-2px); }
+
+/* Малые значимые операции: Платежи/Переводы/История — иконочный вид */
+.btn--pay, .btn--transfer, .btn--history{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--btn-bg);
+  color:var(--fg); font-weight:600;
+}
+/* лёгкие иконки через псевдоэлемент (emoji fallback) */
+.btn--pay::before{ content: "💳"; font-size:16px; }
+.btn--transfer::before{ content: "🔁"; font-size:16px; }
+.btn--history::before{ content: "📜"; font-size:16px; }
+
+.btn--pay:hover, .btn--transfer:hover, .btn--history:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* компактные варианты (если нужны рядом в тулбаре) */
+.btn--compact{ padding:6px 10px; font-size:13px; border-radius:8px; }
+
+/* Адаптация под мобильные — большие тач-мишени */
+@media (max-width:520px){
+  .btn--txn{ width:100%; padding:12px; }
+  .btn--pay, .btn--transfer, .btn--history{ flex:1 1 auto; justify-content:center; }
+}
+
+/* ...existing code... *//* ...existing code... */
+/* Стили для блока быстрых действий в header — не ломают существующую верстку */
+.header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  justify-content:space-between;
+}
+.header__quick{ display:flex; align-items:center; gap:12px; margin-left:18px; }
+.header__quick .actions { display:flex; gap:10px; align-items:center; }
+.header__quick .quick-small { display:flex; gap:8px; align-items:center; }
+
+/* На маленьких экранах скрываем компактные кнопки и переносим основной actions вниз */
+@media (max-width:900px){
+  .header__quick { display:block; margin:10px 0 0 0; }
+  .header__quick .quick-small{ display:flex; gap:8px; margin-top:8px; }
+  .header{ flex-direction:column; align-items:flex-start; }
+}
+@media (max-width:520px){
+  .header__quick .actions .btn{ padding:8px 10px; font-size:13px; }
+  .header__quick .quick-small{ display:none; } /* скрыть мелкие иконки на узких экранах */
+}
+/* Контейнер */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Кнопка */
+.dropbtn {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dropbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Выпадающее меню */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: var(--surface);
+  min-width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 1000;
+  animation: slideDown 0.25s ease-out;
+}
+
+/* Элементы меню */
+.dropdown-content a {
+  color: var(--fg);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+/* Иконки для бирж */
+.dropdown-content a::before {
+  content: "💱";
+  font-size: 16px;
+}
+
+.dropdown-content a:hover {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+  padding-left: 22px;
+}
+
+/* Показ при наведении */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Анимация */
+@keyframes slideDown {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #2928285b, #2c2c2c, #666666, #ffffff);
+  background-size: 400% 400%;
+  animation: monoGradientFlow 18s ease-in-out infinite;
+}
